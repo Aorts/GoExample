@@ -8,9 +8,9 @@ import (
 func calculate(birthDateString string) bool {
 
 	// declare var
-	birthDate, _ := time.Parse("2006/01/02", birthDateString)
-	startDate, _ := time.Parse("2006/01/02", "2021/06/01")
-	endDate, _ := time.Parse("2006/01/02", "2021/08/31")
+	birthDate, _ := time.Parse("2006-01-02", birthDateString)
+	startDate, _ := time.Parse("2006-01-02", "2021-06-01")
+	endDate, _ := time.Parse("2006-01-02", "2021-08-31")
 
 	//get Age at first date and last date of Vaccine
 	ageAtStartDate := startDate.Sub(birthDate).Hours() / 24 / 365
@@ -34,9 +34,9 @@ func calculate(birthDateString string) bool {
 func getStartDate(birthDateString string) string {
 	//res := "2021/06/01"
 	// declare var
-	birthDate, _ := time.Parse("2006/01/02", birthDateString)
-	startDate, _ := time.Parse("2006/01/02", "2021/06/01")
-	endDate, _ := time.Parse("2006/01/02", "2021/08/31")
+	birthDate, _ := time.Parse("2006-01-02", birthDateString)
+	startDate, _ := time.Parse("2006-01-02", "2021-06-01")
+	endDate, _ := time.Parse("2006-01-02", "2021-08-31")
 	res := startDate.Format("2006-01-02")
 
 	//get Age at first date and last date of Vaccine
@@ -59,9 +59,9 @@ func getStartDate(birthDateString string) string {
 func getLastDate(birthDateString string) string {
 	//res := "2021/06/01"
 	// declare var
-	birthDate, _ := time.Parse("2006/01/02", birthDateString)
-	startDate, _ := time.Parse("2006/01/02", "2021/06/01")
-	endDate, _ := time.Parse("2006/01/02", "2021/08/31")
+	birthDate, _ := time.Parse("2006-01-02", birthDateString)
+	startDate, _ := time.Parse("2006-01-02", "2021-06-01")
+	endDate, _ := time.Parse("2006-01-02", "2021-08-31")
 	res := endDate.Format("2006-01-02")
 
 	//get Age at first date and last date of Vaccine
@@ -81,7 +81,7 @@ func Results(gender string, birthDateString string) (string, string, string) {
 	serviceStartDate := ""
 	serviceEndDate := ""
 
-	birthDate, _ := time.Parse("2006/01/02", birthDateString)
+	birthDate, _ := time.Parse("2006-01-02", birthDateString)
 	if birthDate.Year() > 2100 { // handle กรณีใส่เป็น พศ ครับ ขอ assume ว่าไม่มีใครอายุเยอะขนาดนี้นะครับ 55555555
 		birthDate = birthDate.AddDate(-543, 0, 0)
 		birthDateString = birthDate.Format("2006-01-02")
@@ -100,7 +100,7 @@ func Results(gender string, birthDateString string) (string, string, string) {
 
 func main() {
 	eligibleFlag, serviceStartDate, serviceEndDate := Results("Woman", "2564-01-05")
-	fmt.Println("Eligible Flag = ", eligibleFlag)
-	fmt.Println("Start Date = ", serviceStartDate)
-	fmt.Println("End Date = ", serviceEndDate)
+	fmt.Println("eligible Flag = ", eligibleFlag)
+	fmt.Println("service Start Date = ", serviceStartDate)
+	fmt.Println("service End Date = ", serviceEndDate)
 }
