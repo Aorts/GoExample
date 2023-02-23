@@ -37,7 +37,7 @@ func getStartDate(birthDateString string) string {
 	birthDate, _ := time.Parse("2006/01/02", birthDateString)
 	startDate, _ := time.Parse("2006/01/02", "2021/06/01")
 	endDate, _ := time.Parse("2006/01/02", "2021/08/31")
-	res := startDate.Format("2006/01/02")
+	res := startDate.Format("2006-01-02")
 
 	//get Age at first date and last date of Vaccine
 	ageAtStartDate := startDate.Sub(birthDate).Hours() / 24 / 365
@@ -47,10 +47,10 @@ func getStartDate(birthDateString string) string {
 	if (ageAtStartDate < 65 && ageAtEndDate >= 65) || ((ageAtStartDate < 0.5 && ageAtEndDate >= 0.5) && ageAtEndDate < 2) {
 		if ageAtStartDate < 65 && ageAtEndDate >= 65 {
 			birthDate = birthDate.AddDate(65, 0, 0)
-			res = birthDate.Format("2006/01/02")
+			res = birthDate.Format("2006-01-02")
 		} else if (ageAtStartDate < 0.5 && ageAtEndDate >= 0.5) && ageAtEndDate < 2 {
 			birthDate = birthDate.AddDate(0, 6, 0)
-			res = birthDate.Format("2006/01/02")
+			res = birthDate.Format("2006-01-02")
 		}
 	}
 	return res
@@ -62,7 +62,7 @@ func getLastDate(birthDateString string) string {
 	birthDate, _ := time.Parse("2006/01/02", birthDateString)
 	startDate, _ := time.Parse("2006/01/02", "2021/06/01")
 	endDate, _ := time.Parse("2006/01/02", "2021/08/31")
-	res := endDate.Format("2006/01/02")
+	res := endDate.Format("2006-01-02")
 
 	//get Age at first date and last date of Vaccine
 	ageAtStartDate := startDate.Sub(birthDate).Hours() / 24 / 365
@@ -71,7 +71,7 @@ func getLastDate(birthDateString string) string {
 	//fmt.Println(ageAtStartDate)
 	if ageAtStartDate < 2 && ageAtEndDate > 2 {
 		birthDate = birthDate.AddDate(2, 0, 0)
-		res = birthDate.Format("2006/01/02")
+		res = birthDate.Format("2006-01-02")
 	}
 	return res
 }
@@ -84,7 +84,7 @@ func Results(gender string, birthDateString string) (string, string, string) {
 	birthDate, _ := time.Parse("2006/01/02", birthDateString)
 	if birthDate.Year() > 2100 { // handle กรณีใส่เป็น พศ ครับ ขอ assume ว่าไม่มีใครอายุเยอะขนาดนี้นะครับ 55555555
 		birthDate = birthDate.AddDate(-543, 0, 0)
-		birthDateString = birthDate.Format("2006/01/02")
+		birthDateString = birthDate.Format("2006-01-02")
 		//fmt.Println(birthDateString)
 	}
 	_ = gender // decoy ไม่มีให้ response แต่โจทย์บอกให้รับ paramater มาด้วย เลยสร้าง decoy ไว้เพื่อให้ build ได้ครับ
@@ -99,8 +99,8 @@ func Results(gender string, birthDateString string) (string, string, string) {
 }
 
 func main() {
-	eligibleFlag, serviceStartDate, serviceEndDate := Results("man", "1999/07/01")
-	fmt.Println("eligible Flag = ", eligibleFlag)
-	fmt.Println("service Start Date = ", serviceStartDate)
-	fmt.Println("service End Date = ", serviceEndDate)
+	eligibleFlag, serviceStartDate, serviceEndDate := Results("Woman", "2564-01-05")
+	fmt.Println("Eligible Flag = ", eligibleFlag)
+	fmt.Println("Start Date = ", serviceStartDate)
+	fmt.Println("End Date = ", serviceEndDate)
 }
