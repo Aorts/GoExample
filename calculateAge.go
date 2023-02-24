@@ -81,7 +81,13 @@ func Results(gender string, birthDateString string) (string, string, string) {
 	serviceStartDate := ""
 	serviceEndDate := ""
 
-	birthDate, _ := time.Parse("2006-01-02", birthDateString)
+	birthDate, err := time.Parse("2006-01-02", birthDateString)
+	if err != nil {
+		eligibleFlag = "X"
+		serviceStartDate = "invalid date"
+		serviceEndDate = "invalid date"
+		return eligibleFlag, serviceStartDate, serviceEndDate
+	}
 	if birthDate.Year() > 2100 { // handle กรณีใส่เป็น พศ ครับ ขอ assume ว่าไม่มีใครอายุเยอะขนาดนี้นะครับ 55555555
 		birthDate = birthDate.AddDate(-543, 0, 0)
 		birthDateString = birthDate.Format("2006-01-02")
@@ -99,7 +105,7 @@ func Results(gender string, birthDateString string) (string, string, string) {
 }
 
 func main() {
-	eligibleFlag, serviceStartDate, serviceEndDate := Results("Woman", "2564-01-05")
+	eligibleFlag, serviceStartDate, serviceEndDate := Results("Woman", "2564-02-28")
 	fmt.Println("eligible Flag = ", eligibleFlag)
 	fmt.Println("service Start Date = ", serviceStartDate)
 	fmt.Println("service End Date = ", serviceEndDate)
